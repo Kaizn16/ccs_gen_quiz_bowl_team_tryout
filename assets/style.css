@@ -2,18 +2,11 @@
 body {
     font-family: 'Inter', sans-serif;
     transition: all 0.3s ease-in-out;
-    /* --- Quiz Bowl Background: Subtle dark digital/stage effect --- */
-    background-color: #0d121b; /* Darker, slightly blue-tinted base */
-    /* Add subtle radial glows (like stage spotlights) and grid lines */
-    background-image: 
-        radial-gradient(circle at 0% 0%, rgba(0, 255, 255, 0.08) 0%, transparent 25%), 
-        radial-gradient(circle at 100% 100%, rgba(0, 255, 255, 0.08) 0%, transparent 25%),
-        linear-gradient(135deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%),
-        linear-gradient(135deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%);
-    background-size: 50vmax 50vmax, 50vmax 50vmax, 40px 40px;
-    background-repeat: no-repeat, no-repeat, repeat;
-    background-position: 0 0, 100% 100%, 0 0;
-    background-attachment: fixed; 
+    background-color: #0d121b;
+    background-image: url("./images/bg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .title-font {
