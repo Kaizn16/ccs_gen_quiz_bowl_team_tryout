@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCS Quiz Bowl Team Tryouts</title>
+    <link rel="shortcut icon" href="/assets/images/CCS Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/style.css">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="text-gray-100 min-h-screen">
+
+    <div id="confirmation-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 transition-opacity duration-300 opacity-0" onclick="closeModal()">
+        <div class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-sm w-full transform transition-all duration-300 scale-95" onclick="event.stopPropagation()">
+            <h3 class="text-2xl font-bold mb-4 accent-text title-font">Registration Complete!</h3>
+            <p class="text-gray-300 mb-6">
+                Your registration has been successfully submitted and recorded.
+            </p>
+            <button onclick="closeModal()" class="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition duration-200 shadow-md">
+                Got It
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container mx-auto px-4 py-8 sm:py-12">
+
+        <!-- Header/Hero Section -->
+        <header class="text-center mb-16 pt-8">
+            <div class="flex flex-row items-center justify-center gap-4 mb-12">
+                <img src="assets/images/FCUI Logo.png" alt="FCUI LOGO" class="h-32">
+                <div class="flex flex-col justify-center items-center text-2xl">
+                    <h1 class="font-extrabold">Filamer Christian University, Inc.</h1>
+                    <strong class="font-extrabold">College of Computer Studies</strong>
+                </div>
+                <img src="assets/images/CCS Logo.png" alt="CCS LOGO" class="h-32">
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold mb-3 leading-tight title-font">
+                <!-- Applied title-font class here -->
+                <span class="accent-text block">QUIZ BOWL TEAM</span>
+                <p class="text-sm mt-1 mb-1">Ready to compete? The College of Computer Studies is calling on sharp minds to join the Quiz Bowl Team for Founders Week!</p>
+            </h1>
+            <!-- Scoreboard/Display Look for Deadline -->
+            <div class="inline-block p-4 rounded-xl bg-gray-900 quiz-bowl-display">
+                <p class="text-sm sm:text-xl font-bold text-teal-300 title-font tracking-widest">
+                    REGISTRATION DEADLINE
+                </p>
+                <p class="text-xl sm:text-3xl font-extrabold text-white">
+                    WEDNESDAY, OCT 30, 11:59 PM
+                </p>
+            </div>
+        </header>
+
+        <!-- Tryout Categories Section -->
+        <section id="categories" class="mb-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-10 border-b-2 border-teal-600 pb-2 inline-block mx-auto title-font">
+                CATEGORIES
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Category 1: General Information -->
+                <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-xl hover:shadow-teal-500/30 transition duration-300 card-hover border-t-4 border-teal-600">
+                    <div class="text-4xl mb-4 accent-text">💡</div>
+                    <h3 class="text-2xl font-semibold mb-3 title-font">GENERAL INFORMATION</h3>
+                    <p class="text-gray-400">
+                        Test your awareness of current events, history, geography, arts, and contemporary culture. This assesses your broad knowledge base and quick recall ability.
+                    </p>
+                </div>
+
+                <!-- Category 2: General Mathematics -->
+                <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-xl hover:shadow-teal-500/30 transition duration-300 card-hover border-t-4 border-teal-600">
+                    <div class="text-4xl mb-4 accent-text">🧮</div>
+                    <h3 class="text-2xl font-semibold mb-3 title-font">GENERAL MATHEMATICS</h3>
+                    <p class="text-gray-400">
+                        Evaluate your logical reasoning and problem-solving skills across various mathematical disciplines essential for computer science.
+                    </p>
+                </div>
+
+                <!-- Category 3: General Science -->
+                <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-xl hover:shadow-teal-500/30 transition duration-300 card-hover border-t-4 border-teal-600">
+                    <div class="text-4xl mb-4 accent-text">🔬</div>
+                    <h3 class="text-2xl font-semibold mb-3 title-font">GENERAL SCIENCE</h3>
+                    <p class="text-gray-400">
+                        Measure your foundational knowledge in the physical and biological sciences, crucial for analytical thinking and technological understanding.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Form Section -->
+        <section id="register" class="max-w-xl mx-auto bg-gray-800 p-6 sm:p-10 rounded-2xl shadow-2xl border-2 accent-border">
+            <h2 class="text-3xl font-bold text-center mb-6 title-font">
+                READY TO JOIN THE TEAM?
+            </h2>
+            <p class="text-center text-gray-400 mb-8">
+                Submit your details below to confirm your slot for the Quiz Bowl tryouts.
+            </p>
+
+            <form id="tryout-form" onsubmit="handleFormSubmission(event)" class="space-y-5">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                    <input type="text" id="name" name="name" required
+                           class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-teal-500 focus:border-teal-500 text-white placeholder-gray-400"
+                           placeholder="Juan Dela Cruz">
+                </div>
+
+                <div>
+                    <label for="year" class="block text-sm font-medium text-gray-300 mb-1">Year Level</label>
+                    <select id="year" name="year" required
+                            class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-teal-500 focus:border-teal-500 text-white appearance-none">
+                        <option value="">Select Year Level</option>
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="section" class="block text-sm font-medium text-gray-300 mb-1">Section</label>
+                    <select id="section" name="section" required
+                            class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-teal-500 focus:border-teal-500 text-white appearance-none">
+                        <option value="">Select Section</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="category" class="block text-sm font-medium text-gray-300 mb-1">Category</label>
+                    <select id="category" name="category" required
+                            class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-teal-500 focus:border-teal-500 text-white appearance-none">
+                        <option value="">Select Category</option>
+                        <option value="Information">Information</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Science">Science</option>
+                    </select>
+                </div>
+
+                
+                <button type="submit" id="submit-button"
+                        class="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition duration-200 transform hover:scale-[1.01] shadow-lg shadow-teal-500/50 flex items-center justify-center">
+                    <span id="button-text">REGISTER FOR TRYOUTS</span>
+                    <span id="loading-content" class="hidden flex items-center">
+                        <svg class="animate-spin h-5 w-5 mr-3 text-teal-200" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Submitting...
+                    </span>
+                </button>
+                <p id="error-message" class="text-red-400 text-center hidden"></p>
+            </form>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 mt-12 py-6 border-t border-gray-700">
+        <div class="container mx-auto px-4 text-center text-gray-400 text-sm">
+            <p>&copy; 2025 College of Computer Studies (CCS). All rights reserved. (Dev. Mark)</p>
+        </div>
+    </footer>
+
+    <script src="assets/script.js"></script>
+
+</body>
+</html>
