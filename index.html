@@ -6,12 +6,23 @@
     <title>CCS Quiz Bowl Team Tryouts</title>
     <link rel="shortcut icon" href="assets/images/CCS Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="assets/style.css">
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'accent-text': '#38B2AC',
+                        'accent-border': '#38B2AC',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 <body class="text-gray-100 min-h-screen">
 
-    <div id="confirmation-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 transition-opacity duration-300 opacity-0" onclick="closeModal()">
+    <div id="confirmation-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 transition-opacity duration-300 opacity-0 pointer-events-none" onclick="closeModal()">
         <div class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-sm w-full transform transition-all duration-300 scale-95" onclick="event.stopPropagation()">
             <h3 class="text-2xl font-bold mb-4 accent-text title-font">Registration Complete!</h3>
             <p class="text-gray-300 mb-6">
@@ -23,10 +34,8 @@
         </div>
     </div>
 
-    <!-- Main Content Container -->
     <div class="container mx-auto px-4 py-8 sm:py-12">
 
-        <!-- Header/Hero Section -->
         <header class="text-center mb-16 pt-8">
             <div class="flex flex-row items-center justify-center gap-4 mb-12">
                 <img src="assets/images/FCUI Logo.png" alt="FCUI LOGO" class="h-32">
@@ -37,11 +46,9 @@
                 <img src="assets/images/CCS Logo.png" alt="CCS LOGO" class="h-32">
             </div>
             <h1 class="text-4xl sm:text-6xl font-extrabold mb-3 leading-tight title-font">
-                <!-- Applied title-font class here -->
-                <span class="accent-text block">QUIZ BOWL TEAM</span>
+                <span class="text-teal-400 block">QUIZ BOWL TEAM</span>
                 <p class="text-sm mt-1 mb-1">Ready to compete? The College of Computer Studies is calling on sharp minds to join the Quiz Bowl Team for Founders Week!</p>
             </h1>
-            <!-- Scoreboard/Display Look for Deadline -->
             <div class="inline-block p-4 rounded-xl bg-gray-900 quiz-bowl-display">
                 <p class="text-sm sm:text-xl font-bold text-teal-300 title-font tracking-widest">
                     REGISTRATION DEADLINE
@@ -52,7 +59,6 @@
             </div>
         </header>
 
-        <!-- Tryout Categories Section -->
         <section id="categories" class="mb-16">
             <h2 class="text-3xl sm:text-4xl font-bold text-center mb-10 border-b-2 border-teal-600 pb-2 inline-block mx-auto title-font">
                 CATEGORIES
@@ -60,27 +66,24 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                <!-- Category 1: General Information -->
                 <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-xl hover:shadow-teal-500/30 transition duration-300 card-hover border-t-4 border-teal-600">
-                    <div class="text-4xl mb-4 accent-text">💡</div>
+                    <div class="text-4xl mb-4 text-teal-400">💡</div>
                     <h3 class="text-2xl font-semibold mb-3 title-font">GENERAL INFORMATION</h3>
                     <p class="text-gray-400">
                         Test your awareness of current events, history, geography, arts, and contemporary culture. This assesses your broad knowledge base and quick recall ability.
                     </p>
                 </div>
 
-                <!-- Category 2: General Mathematics -->
                 <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-xl hover:shadow-teal-500/30 transition duration-300 card-hover border-t-4 border-teal-600">
-                    <div class="text-4xl mb-4 accent-text">🧮</div>
+                    <div class="text-4xl mb-4 text-teal-400">🧮</div>
                     <h3 class="text-2xl font-semibold mb-3 title-font">GENERAL MATHEMATICS</h3>
                     <p class="text-gray-400">
                         Evaluate your logical reasoning and problem-solving skills across various mathematical disciplines essential for computer science.
                     </p>
                 </div>
 
-                <!-- Category 3: General Science -->
                 <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-xl hover:shadow-teal-500/30 transition duration-300 card-hover border-t-4 border-teal-600">
-                    <div class="text-4xl mb-4 accent-text">🔬</div>
+                    <div class="text-4xl mb-4 text-teal-400">🔬</div>
                     <h3 class="text-2xl font-semibold mb-3 title-font">GENERAL SCIENCE</h3>
                     <p class="text-gray-400">
                         Measure your foundational knowledge in the physical and biological sciences, crucial for analytical thinking and technological understanding.
@@ -89,8 +92,7 @@
             </div>
         </section>
 
-        <!-- Registration Form Section -->
-        <section id="register" class="max-w-xl mx-auto bg-gray-800 p-6 sm:p-10 rounded-2xl shadow-2xl border-2 accent-border">
+        <section id="register" class="max-w-xl mx-auto bg-gray-800 p-6 sm:p-10 rounded-2xl shadow-2xl border-2 border-teal-600">
             <h2 class="text-3xl font-bold text-center mb-6 title-font">
                 READY TO JOIN THE TEAM?
             </h2>
@@ -106,41 +108,84 @@
                            placeholder="Juan Dela Cruz">
                 </div>
 
-                <div>
-                    <label for="year" class="block text-sm font-medium text-gray-300 mb-1">Year Level</label>
-                    <select id="year" name="year" required
-                            class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-teal-500 focus:border-teal-500 text-white appearance-none">
-                        <option value="">Select Year Level</option>
-                        <option value="1st Year">1st Year</option>
-                        <option value="2nd Year">2nd Year</option>
-                        <option value="3rd Year">3rd Year</option>
-                        <option value="4th Year">4th Year</option>
-                    </select>
-                </div>
+                <fieldset>
+                    <legend class="block text-sm font-medium text-gray-300 mb-2">Year Level</legend>
+                    <div class="flex flex-wrap gap-1">
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="radio" id="year-1" name="year" value="1st Year" required
+                                   class="form-radio h-5 w-5 text-teal-600 focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">1st Year</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="radio" id="year-2" name="year" value="2nd Year"
+                                   class="form-radio h-5 w-5 text-teal-600 focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">2nd Year</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="radio" id="year-3" name="year" value="3rd Year"
+                                   class="form-radio h-5 w-5 text-teal-600 focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">3rd Year</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="radio" id="year-4" name="year" value="4th Year"
+                                   class="form-radio h-5 w-5 text-teal-600 focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">4th Year</span>
+                        </label>
+                    </div>
+                </fieldset>
                 
-                <div>
-                    <label for="section" class="block text-sm font-medium text-gray-300 mb-1">Section</label>
-                    <select id="section" name="section" required
-                            class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-teal-500 focus:border-teal-500 text-white appearance-none">
-                        <option value="">Select Section</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                    </select>
-                </div>
+                <fieldset>
+                    <legend class="block text-sm font-medium text-gray-300 mb-2">Section</legend>
+                    <div class="flex flex-wrap gap-4">
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="radio" id="section-a" name="section" value="A" required
+                                   class="form-radio h-5 w-5 text-teal-600 focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">A</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="radio" id="section-b" name="section" value="B"
+                                   class="form-radio h-5 w-5 text-teal-600 focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">B</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="radio" id="section-c" name="section" value="C"
+                                   class="form-radio h-5 w-5 text-teal-600 focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">C</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="radio" id="section-d" name="section" value="D"
+                                   class="form-radio h-5 w-5 text-teal-600 focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">D</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="radio" id="section-e" name="section" value="E"
+                                   class="form-radio h-5 w-5 text-teal-600 focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">E</span>
+                        </label>
+                    </div>
+                </fieldset>
 
-                <div>
-                    <label for="category" class="block text-sm font-medium text-gray-300 mb-1">Category</label>
-                    <select id="category" name="category" required
-                            class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-teal-500 focus:border-teal-500 text-white appearance-none">
-                        <option value="">Select Category</option>
-                        <option value="Gen. Information">Gen. Information</option>
-                        <option value="Gen. Mathematics">Gen. Mathematics</option>
-                        <option value="Gen. Science">Gen. Science</option>
-                    </select>
-                </div>
+                <fieldset>
+                    <legend class="block text-sm font-medium text-gray-300 mb-2">Category (Select all that apply)</legend>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="checkbox" name="category" value="Gen. Information" 
+                                   class="form-checkbox h-5 w-5 text-teal-600 rounded focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">Gen. Information</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="checkbox" name="category" value="Gen. Mathematics"
+                                   class="form-checkbox h-5 w-5 text-teal-600 rounded focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">Gen. Mathematics</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-gray-700 p-3 rounded-lg border border-gray-600 hover:bg-gray-600 cursor-pointer transition">
+                            <input type="checkbox" name="category" value="Gen. Science"
+                                   class="form-checkbox h-5 w-5 text-teal-600 rounded focus:ring-teal-500 bg-gray-600 border-gray-500">
+                            <span class="text-white">Gen. Science</span>
+                        </label>
+                    </div>
+                    <p id="category-error" class="text-red-400 text-sm mt-2 hidden">Please select at least one category.</p>
+                </fieldset>
 
                 
                 <button type="submit" id="submit-button"
@@ -160,7 +205,6 @@
 
     </div>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 mt-12 py-6 border-t border-gray-700">
         <div class="container mx-auto px-4 text-center text-gray-400 text-sm">
             <p>&copy; 2025 College of Computer Studies (CCS). All rights reserved. (Dev. Mark)</p>

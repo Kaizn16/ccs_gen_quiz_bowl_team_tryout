@@ -5,7 +5,7 @@ const submitButton = document.getElementById('submit-button');
 const buttonText = document.getElementById('button-text');
 const loadingContent = document.getElementById('loading-content');
 const errorMessage = document.getElementById('error-message');
-
+const categoryError = document.getElementById('category-error');
 
 async function handleFormSubmission(event) {
     event.preventDefault();
@@ -15,18 +15,34 @@ async function handleFormSubmission(event) {
         return;
     }
     
+    // 1. Get Selected Categories
+    const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked'))
+                                     .map(checkbox => checkbox.value);
+
+    if (selectedCategories.length === 0) {
+        categoryError.classList.remove('hidden');
+        return;
+    } else {
+        categoryError.classList.add('hidden');
+    }
+
+    // 2. Disable button and show loading state
     submitButton.disabled = true;
     submitButton.classList.add('opacity-50', 'cursor-not-allowed');
-    
     buttonText.classList.add('hidden');
     loadingContent.classList.remove('hidden');
-
     errorMessage.classList.add('hidden');
 
+    // 3. Prepare Base Data (Full Name, Year, Section, Timestamp)
     const formData = new FormData(form);
-    const data = {};
-    formData.forEach((value, key) => data[key] = value);
-    
+    const baseData = {};
+    // Extract non-category fields (Name, Year, Section)
+    formData.forEach((value, key) => {
+        if (key !== 'category') {
+            baseData[key] = value;
+        }
+    });
+
     const TIMESTAMP_OPTIONS = {
         year: 'numeric',
         month: 'long',
@@ -36,32 +52,48 @@ async function handleFormSubmission(event) {
         hour12: true
     };
 
-    data.timestamp = new Date().toLocaleString('en-US', TIMESTAMP_OPTIONS);
+    baseData.timestamp = new Date().toLocaleString('en-US', TIMESTAMP_OPTIONS);
     
-    console.log("Sending data:", data);
+    let submissionSuccess = true;
+    let failedCategories = [];
 
-    try {
-        const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
+    // 4. LOOP through each selected category and send a separate request
+    for (const category of selectedCategories) {
+        const submissionData = { ...baseData, category: category }; // Create a copy and add the single category
+        
+        console.log(`Sending data for category "${category}":`, submissionData);
+
+        try {
+            await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors', 
+                body: JSON.stringify(submissionData),
+            });
+            // Since we are using 'no-cors', we assume success if the fetch promise resolves.
+
+        } catch (error) {
+            console.error(`Submission failed for category ${category}:`, error);
+            submissionSuccess = false;
+            failedCategories.push(category);
+        }
+    }
+
+    // 5. Handle Final Result
+    if (submissionSuccess) {
         showModal();
         form.reset();
-
-    } catch (error) {
-        console.error('Submission failed:', error);
-        displayError("Submission failed. Check your network connection or the script URL.");
-    } finally {
-        submitButton.disabled = false;
-        submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
-        
-        buttonText.classList.remove('hidden');
-        loadingContent.classList.add('hidden');
+        // Manually reset the category error message on successful submission
+        categoryError.classList.add('hidden');
+    } else {
+        const errorMsg = `Submission failed for the following categories: ${failedCategories.join(', ')}. Check your network.`;
+        displayError(errorMsg);
     }
+    
+    // 6. Reset loading state
+    submitButton.disabled = false;
+    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    buttonText.classList.remove('hidden');
+    loadingContent.classList.add('hidden');
 }
 
 /**
@@ -71,44 +103,40 @@ async function handleFormSubmission(event) {
 function displayError(message) {
     errorMessage.textContent = message;
     errorMessage.classList.remove('hidden');
-    // Hide after a delay
-    setTimeout(() => errorMessage.classList.add('hidden'), 5000);
+    setTimeout(() => errorMessage.classList.add('hidden'), 7000);
 }
 
 
-// Function to display the modal (no change)
+
 function showModal() {
     const modal = document.getElementById('confirmation-modal');
-    modal.classList.remove('hidden');
-    // Trigger transition effects
+    
+
+    modal.classList.remove('pointer-events-none');
+    modal.classList.add('pointer-events-auto', 'opacity-100');
+
+
     setTimeout(() => {
-        modal.classList.add('opacity-100');
         modal.querySelector('div').classList.remove('scale-95');
         modal.querySelector('div').classList.add('scale-100');
     }, 10);
 }
 
-// Function to hide the modal (no change)
+
 function closeModal() {
     const modal = document.getElementById('confirmation-modal');
-    modal.classList.remove('opacity-100');
+    
+    
     modal.querySelector('div').classList.remove('scale-100');
     modal.querySelector('div').classList.add('scale-95');
 
+    
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0');
+
+    
     setTimeout(() => {
-        modal.classList.add('hidden');
-    }, 600);
+        modal.classList.remove('pointer-events-auto');
+        modal.classList.add('pointer-events-none');
+    }, 300); 
 }
-
-document.getElementById('year').addEventListener('change', function() {
-    if (this.value === "") {
-        this.classList.add('text-gray-400');
-        this.classList.remove('text-white');
-    } else {
-        this.classList.remove('text-gray-400');
-        this.classList.add('text-white');
-    }
-});
-
-
-document.getElementById('year').dispatchEvent(new Event('change'));
